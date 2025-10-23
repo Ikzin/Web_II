@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Início - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Bem-vindo(a), {{ user.first_name|default:user.username }}!</h1>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-primary shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-book"></i> Total de Livros</h5>
+                    <p class="card-text fs-2">{{ total_livros }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-success shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-pen"></i> Total de Autores</h5>
+                    <p class="card-text fs-2">{{ total_autores }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card text-white bg-info shadow-sm h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-tags"></i> Total de Categorias</h5>
+                    <p class="card-text fs-2">{{ total_categorias }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4">
+
+    <h2><i class="bi bi-star-fill"></i> Sugestões de Leitura</h2>
+    <p class="text-muted">Livros adicionados recentemente</p>
+    
+    <div class="row">
+        {% for livro in livros_recentes %}
+            <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100 text-center shadow-sm">
+                    {% if livro.capa %}
+                        <img src="{{ livro.capa.url }}" class="card-img-top" alt="Capa de {{ livro.titulo }}" 
+                             style="height: 220px; object-fit: cover;">
+                    {% else %}
+                        <div class="d-flex align-items-center justify-content-center bg-light" 
+                             style="height: 220px;">
+                            <i class="bi bi-book-half fs-1 text-muted"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h6 class="card-title">{{ livro.titulo }}</h6>
+                        <small class="text-muted">{{ livro.autor.nome }}</small>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Nenhum livro cadastrado ainda. Comece adicionando alguns!</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

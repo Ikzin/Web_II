@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Nova Editora - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <h1><i class="bi bi-building"></i> Adicionar/Editar Editora</h1>
+    <hr>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <hr>
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg"></i> Salvar
+                </button>
+                <a href="{% url 'lista_editoras' %}" class="btn btn-secondary">
+                    <i class="bi bi-x-lg"></i> Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
